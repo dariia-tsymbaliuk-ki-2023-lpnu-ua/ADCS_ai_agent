@@ -69,7 +69,7 @@ if __name__ == "__main__":
     main()
 ```
 
-`tests/__init__.py` — порожній файл.
+`tests/__init__.py` — порожній файл (0 байт, без переносу рядка).
 
 `tests/test_main.py` містить обов'язкові тести `test_greet()` і `test_basic_addition()` (BasicAddition):
 

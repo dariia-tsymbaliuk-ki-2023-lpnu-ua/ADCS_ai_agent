@@ -32,3 +32,21 @@
 :: Windows
 scripts\ci.bat
 ```
+
+## Запуск
+
+Мінімальний кросплатформний Hello World-проєкт `hello_world` на Python 3.10+ (src-layout, venv, pytest).
+
+Linux / macOS:
+
+```bash
+./scripts/ci.sh                      # створити .venv, встановити залежності, запустити pytest
+PYTHONPATH=src python3 -m hello_world.main
+```
+
+Windows (cmd):
+
+```bat
+scripts\ci.bat
+set PYTHONPATH=src && python -m hello_world.main
+```

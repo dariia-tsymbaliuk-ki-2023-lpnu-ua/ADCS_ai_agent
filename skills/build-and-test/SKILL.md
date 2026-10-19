@@ -33,10 +33,10 @@ description: Ізолює середовище розробки у .venv, вст
 
 ### `tests/__init__.py` і `tests/test_main.py`
 
-`tests/__init__.py` — порожній файл. `tests/test_main.py` містить обов'язкові тести `test_greet()` і BasicAddition (`test_basic_addition()`):
+`tests/__init__.py` — порожній файл (0 байт, без переносу рядка). `tests/test_main.py` містить обов'язкові тести `test_greet()` і BasicAddition (`test_basic_addition()`):
 
 ```python
-from hello_world.main import add, greet
+from hello_world.main import add, greet, main
 
 
 def test_greet():
@@ -45,6 +45,11 @@ def test_greet():
 
 def test_basic_addition():
     assert add(2, 3) == 5
+
+
+def test_main_prints_greeting(capsys):
+    main()
+    assert capsys.readouterr().out.strip() == "Hello, World!"
 ```
 
 ### `requirements-dev.txt`
@@ -127,7 +132,12 @@ echo [OK] Build and tests passed
 exit /b 0
 ```
 
-Після кожної команди `if errorlevel 1 exit /b 1` реалізує той самий принцип fail-fast, що й `set -e` у `ci.sh`. Файл зберігається з закінченнями рядків CRLF.
+Після кожної команди `if errorlevel 1 exit /b 1` реалізує той самий принцип fail-fast, що й `set -e` у `ci.sh`. Файл зберігається з закінченнями рядків CRLF. Редактори й інструменти агента пишуть LF, тому одразу після створення конвертуй файл і перевір результат:
+
+```bash
+python3 -c "p='scripts/ci.bat'; d=open(p,'rb').read().replace(b'\r\n',b'\n').replace(b'\n',b'\r\n'); open(p,'wb').write(d)"
+file scripts/ci.bat    # очікується: with CRLF line terminators
+```
 
 ## 4. Команди перевірки (Verification)
 

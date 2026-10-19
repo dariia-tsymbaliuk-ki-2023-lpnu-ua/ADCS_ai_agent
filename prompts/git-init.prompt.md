@@ -21,10 +21,11 @@ description: Перевіряє стан Git, ідемпотентно ство�
    ```text
    .venv/
    __pycache__/
-   .pytest_cache/
    *.pyc
+   .pytest_cache/
    build/
    dist/
+   *.egg-info/
    ```
 
 3. Виведи стан репозиторію: `git status --short`.
@@ -34,7 +35,7 @@ description: Перевіряє стан Git, ідемпотентно ство�
 ## Expected Files
 
 - `.git/` — репозиторій (створений або наявний).
-- `.gitignore` — містить усі шість обов'язкових правил, кожне рівно один раз.
+- `.gitignore` — містить усі сім обов'язкових правил, кожне рівно один раз.
 
 ## Verification
 
@@ -42,7 +43,7 @@ Linux / macOS:
 
 ```bash
 git rev-parse --is-inside-work-tree
-for r in '.venv/' '__pycache__/' '.pytest_cache/' '*.pyc' 'build/' 'dist/'; do
+for r in '.venv/' '__pycache__/' '*.pyc' '.pytest_cache/' 'build/' 'dist/' '*.egg-info/'; do
   grep -qxF "$r" .gitignore || { echo "[FAIL] .gitignore: missing $r"; exit 1; }
 done
 git status --short
@@ -52,7 +53,7 @@ Windows (cmd):
 
 ```bat
 git rev-parse --is-inside-work-tree || exit /b 1
-for %%r in (.venv/ __pycache__/ .pytest_cache/ *.pyc build/ dist/) do (
+for %%r in (.venv/ __pycache__/ *.pyc .pytest_cache/ build/ dist/ *.egg-info/) do (
   findstr /x /c:"%%r" .gitignore >nul || (echo [FAIL] .gitignore: missing %%r & exit /b 1)
 )
 git status --short
