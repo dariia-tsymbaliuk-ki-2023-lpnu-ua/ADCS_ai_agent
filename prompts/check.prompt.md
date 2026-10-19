@@ -16,7 +16,7 @@ description: Діагностика без змін проєкту — пере�
 ## Actions
 
 1. Зафіксуй стан репозиторію до перевірки: `git status --porcelain` (знімок A).
-2. **Структура.** Перевір наявність файлів зі списку Expected Files і обов'язкових елементів: `greet`, `add`, `main` у `src/hello_world/main.py`; `test_greet`, `test_basic_addition` у `tests/test_main.py`; правила `.venv/`, `__pycache__/`, `.pytest_cache/`, `*.pyc`, `build/`, `dist/` у `.gitignore`.
+2. **Структура.** Перевір наявність файлів зі списку Expected Files і обов'язкових елементів: `greet`, `add`, `main` у `src/hello_world/main.py`; `test_greet`, `test_basic_addition` у `tests/test_main.py`; правила `.venv/`, `__pycache__/`, `*.pyc`, `.pytest_cache/`, `build/`, `dist/`, `*.egg-info/` у `.gitignore`; закінчення рядків CRLF у `scripts/ci.bat` і LF у `scripts/ci.sh`.
 3. **Синтаксис.** `python -m py_compile` для файлів у `src/` і `tests/`.
 4. **YAML.** Валідація `.github/workflows/ci.yml`, наявність трьох runner у матриці, кроків запуску `scripts/ci.sh` / `scripts\ci.bat` і відсутність прямих викликів `pip` / `pytest`.
 5. **Збірка.** Запуск скрипта під поточну ОС: `bash scripts/ci.sh` (Linux/macOS; через `bash`, щоб не змінювати права файлу) або `scripts\ci.bat` (Windows). Перевір код повернення 0.
